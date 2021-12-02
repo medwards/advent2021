@@ -3,8 +3,14 @@ use std::fs::read_to_string;
 use anyhow::Result;
 
 fn main() {
-    println!("Day 1, Part One: {}", day_one::part_one(day_one::INPUT_PATH).unwrap());
-    println!("Day 1, Part Two: {}", day_one::part_two(day_one::INPUT_PATH).unwrap());
+    println!(
+        "Day 1, Part One: {}",
+        day_one::part_one(day_one::INPUT_PATH).unwrap()
+    );
+    println!(
+        "Day 1, Part Two: {}",
+        day_one::part_two(day_one::INPUT_PATH).unwrap()
+    );
 }
 
 fn load_integers(path: &str) -> Result<Vec<usize>> {
@@ -56,7 +62,7 @@ mod day_one {
     }
 
     fn count_window_increases(nums: &[usize]) -> usize {
-        let window_sums:Vec<_> = nums.windows(3).map(|w| w.iter().sum()).collect();
+        let window_sums: Vec<_> = nums.windows(3).map(|w| w.iter().sum()).collect();
 
         count_increases(window_sums.as_slice())
     }
@@ -66,7 +72,7 @@ mod day_one {
         use super::count_increases;
         use super::count_window_increases;
 
-        const EXAMPLE_INPUT: &'static [usize] =&[199, 200, 208, 210, 200, 207, 240, 269, 260, 263];
+        const EXAMPLE_INPUT: &'static [usize] = &[199, 200, 208, 210, 200, 207, 240, 269, 260, 263];
 
         #[test]
         fn test_example_part1() {
