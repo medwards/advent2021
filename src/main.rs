@@ -25,8 +25,8 @@ fn load_integers(path: &str) -> Result<Vec<usize>> {
     let contents = read_to_string(path)?;
     let integers: Result<Vec<_>> = contents
         .trim()
-        .split("\n")
-        .map(|s| s.parse().map_err(|e| anyhow::Error::new(e)))
+        .split('\n')
+        .map(|s| s.parse().map_err(anyhow::Error::new))
         .collect();
     integers
 }
@@ -50,7 +50,7 @@ mod day_one {
     use super::load_integers;
     use anyhow::Result;
 
-    pub const INPUT_PATH: &'static str = "inputs/day/1/input";
+    pub const INPUT_PATH: &str = "inputs/day/1/input";
 
     pub fn part_one(path: &str) -> Result<usize> {
         let nums = load_integers(path)?;
@@ -98,7 +98,7 @@ mod day_two {
     use anyhow::{anyhow, Error, Result};
     use std::fs::read_to_string;
 
-    pub const INPUT_PATH: &'static str = "inputs/day/2/input";
+    pub const INPUT_PATH: &str = "inputs/day/2/input";
 
     pub fn part_one(path: &str) -> Result<usize> {
         let directions = read_to_directions(path)?;
@@ -164,7 +164,7 @@ mod day_two {
         let contents = read_to_string(path)?;
         let directions: Result<Vec<_>> = contents
             .trim()
-            .split("\n")
+            .split('\n')
             .map(Direction::try_from)
             .collect();
         directions
