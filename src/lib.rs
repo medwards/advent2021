@@ -4,6 +4,7 @@ pub mod day_one;
 pub mod day_three;
 pub mod day_two;
 
+#[derive(Debug)]
 pub enum Error {
     InvalidDay,
 }
