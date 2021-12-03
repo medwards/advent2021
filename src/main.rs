@@ -7,30 +7,63 @@ mod day_three;
 mod day_two;
 
 fn main() {
-    println!(
-        "Day 1, Part One: {}",
-        day_one::part_one(day_one::INPUT_PATH).unwrap()
+    let mut app = clap::App::new("Advent of Code 2021 Solver")
+        .author("Michael Edwards <medwards@walledcity.ca>")
+        .subcommand(
+            clap::App::new("day").about("Select day to solve").arg(
+                clap::Arg::new("DAY")
+                    .multiple_occurrences(true)
+                    .min_values(1)
+                    .required(true),
+            ),
+        );
+    let subcommand_error = app.error(
+        clap::ErrorKind::MissingSubcommand,
+        "Missing subcommand which wasn't expected. Did you mean 'day'?",
     );
-    println!(
-        "Day 1, Part Two: {}",
-        day_one::part_two(day_one::INPUT_PATH).unwrap()
+    let invalid_day_error = app.error(
+        clap::ErrorKind::InvalidValue,
+        "a DAY argument wasn't recognized",
     );
-    println!(
-        "Day 2, Part One: {}",
-        day_two::part_one(day_two::INPUT_PATH).unwrap()
-    );
-    println!(
-        "Day 2, Part Two: {}",
-        day_two::part_two(day_two::INPUT_PATH).unwrap()
-    );
-    println!(
-        "Day 3, Part One: {}",
-        day_three::part_one(day_three::INPUT_PATH).unwrap()
-    );
-    println!(
-        "Day 3, Part Two: {}",
-        day_three::part_two(day_three::INPUT_PATH).unwrap()
-    );
+    let matches = app.get_matches();
+
+    let days = if let Some(subcommand) = matches.subcommand_matches("day") {
+        subcommand.values_of("DAY").expect("day was not provided")
+    } else {
+        subcommand_error.exit();
+    };
+
+    days.for_each(|day| {
+        let (day, input_path, part_one, part_two): (
+            &str,
+            &str,
+            fn(&str) -> Result<usize>,
+            fn(&str) -> Result<usize>,
+        ) = match day {
+            "1" | "one" => (
+                "1",
+                day_one::INPUT_PATH,
+                day_one::part_one,
+                day_one::part_two,
+            ),
+            "2" | "two" => (
+                "2",
+                day_two::INPUT_PATH,
+                day_two::part_one,
+                day_two::part_two,
+            ),
+            "3" | "three" => (
+                "3",
+                day_three::INPUT_PATH,
+                day_three::part_one,
+                day_three::part_two,
+            ),
+            _ => invalid_day_error.exit(),
+        };
+
+        println!("Day {}, Part One: {}", day, part_one(input_path).unwrap());
+        println!("Day {}, Part One: {}", day, part_two(input_path).unwrap());
+    });
 }
 
 fn load_integers(path: &str) -> Result<Vec<usize>> {
