@@ -1,5 +1,6 @@
-use super::load_integers;
 use anyhow::Result;
+
+use crate::load_integers;
 
 pub const INPUT_PATH: &str = "inputs/day/1/input";
 

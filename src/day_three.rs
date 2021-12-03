@@ -1,5 +1,6 @@
-use anyhow::Result;
 use std::{num::ParseIntError, ops::BitXor};
+
+use anyhow::Result;
 
 use crate::read_to_lines;
 
