@@ -1,5 +1,4 @@
 use anyhow::{anyhow, Error, Result};
-use std::fs::read_to_string;
 
 pub const INPUT_PATH: &str = "inputs/day/2/input";
 
@@ -63,18 +62,15 @@ fn calculate_aimed_position(directions: &[Direction]) -> (usize, usize) {
     (aimed_position.0, aimed_position.1)
 }
 
-fn read_to_directions(path: &str) -> Result<Vec<Direction>> {
-    let contents = read_to_string(path)?;
-    let directions: Result<Vec<_>> = contents
-        .trim()
-        .split('\n')
-        .map(Direction::try_from)
-        .collect();
+fn read_to_directions(contents: &str) -> Result<Vec<Direction>> {
+    let directions: Result<Vec<_>> = contents.lines().map(Direction::try_from).collect();
     directions
 }
 
 #[cfg(test)]
 mod tests {
+    use std::fs::read_to_string;
+
     use super::{calculate_aimed_position, calculate_position, read_to_directions, Direction};
 
     const EXAMPLE_INPUT: &'static [Direction] = &[
@@ -100,9 +96,13 @@ mod tests {
     fn test_read_to_directions() {
         assert_eq!(
             EXAMPLE_INPUT,
-            read_to_directions("fixtures/submarine_directions.txt")
-                .unwrap()
-                .as_slice()
+            read_to_directions(
+                read_to_string("fixtures/submarine_directions.txt")
+                    .unwrap()
+                    .as_str()
+            )
+            .unwrap()
+            .as_slice()
         );
     }
 }

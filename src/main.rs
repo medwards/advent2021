@@ -61,26 +61,33 @@ fn main() {
             _ => invalid_day_error.exit(),
         };
 
-        println!("Day {}, Part One: {}", day, part_one(input_path).unwrap());
-        println!("Day {}, Part One: {}", day, part_two(input_path).unwrap());
+        let contents = read_to_string(input_path)
+            .unwrap_or_else(|e| panic!("Unable to read from {} - {}", input_path, e));
+
+        println!(
+            "Day {}, Part One: {}",
+            day,
+            part_one(contents.as_str()).unwrap()
+        );
+        println!(
+            "Day {}, Part One: {}",
+            day,
+            part_two(contents.as_str()).unwrap()
+        );
     });
 }
 
-fn load_integers(path: &str) -> Result<Vec<usize>> {
-    let contents = read_to_string(path)?;
+fn load_integers(contents: &str) -> Result<Vec<usize>> {
     let integers: Result<Vec<_>> = contents
-        .trim()
-        .split('\n')
+        .lines()
         .map(|s| s.parse().map_err(anyhow::Error::new))
         .collect();
     integers
 }
 
-fn read_to_lines(path: &str) -> Result<Vec<String>> {
-    let contents = read_to_string(path)?;
+fn read_to_lines(contents: &str) -> Result<Vec<String>> {
     let lines: Vec<_> = contents
-        .trim()
-        .split('\n')
+        .lines()
         .flat_map(String::from_str) // can't fail
         .collect();
     Ok(lines)
@@ -96,7 +103,10 @@ mod tests {
 
         assert_eq!(
             expected_output,
-            load_integers("fixtures/positive_integers.txt").expect("Unexpected failure")
+            load_integers(
+                read_to_string("fixtures/positive_integers.txt").expect("missing fixture")
+            )
+            .expect("Unexpected failure")
         );
     }
 }
