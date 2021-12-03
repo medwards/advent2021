@@ -4,8 +4,8 @@ use crate::load_integers;
 
 pub const INPUT_PATH: &str = "inputs/day/1/input";
 
-pub fn part_one(path: &str) -> Result<usize> {
-    let nums = load_integers(path)?;
+pub fn part_one(contents: &str) -> Result<usize> {
+    let nums = load_integers(contents)?;
     Ok(count_increases(nums.as_slice()))
 }
 

@@ -6,16 +6,16 @@ use crate::read_to_lines;
 
 pub const INPUT_PATH: &str = "inputs/day/3/input";
 
-pub fn part_one(path: &str) -> Result<usize> {
-    let diagnostics = read_to_lines(path)?;
+pub fn part_one(contents: &str) -> Result<usize> {
+    let diagnostics = read_to_lines(contents)?;
     let diagnostic_length: u32 = diagnostics.get(0).map(|d| d.len() as u32).unwrap_or(0);
     let gamma_rate = calculate_gamma_rate(diagnostics.as_slice(), diagnostic_length)?;
     let epsilon_rate = epsilon_rate_from_gamma_rate(gamma_rate, diagnostic_length)?;
     Ok((gamma_rate * epsilon_rate) as usize)
 }
 
-pub fn part_two(path: &str) -> Result<usize> {
-    let diagnostics = read_to_lines(path)?;
+pub fn part_two(contents: &str) -> Result<usize> {
+    let diagnostics = read_to_lines(contents)?;
     let diagnostic_length: u32 = diagnostics.get(0).map(|d| d.len() as u32).unwrap_or(0);
     let generator_rating = calculate_generator_rating(diagnostics.as_slice(), diagnostic_length)?;
     let scrubber_rating = calculate_scrubber_rating(diagnostics.as_slice(), diagnostic_length)?;

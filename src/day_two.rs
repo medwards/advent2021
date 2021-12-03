@@ -2,14 +2,14 @@ use anyhow::{anyhow, Error, Result};
 
 pub const INPUT_PATH: &str = "inputs/day/2/input";
 
-pub fn part_one(path: &str) -> Result<usize> {
-    let directions = read_to_directions(path)?;
+pub fn part_one(contents: &str) -> Result<usize> {
+    let directions = read_to_directions(contents)?;
     let (x, y) = calculate_position(directions.as_slice());
     Ok(x * y)
 }
 
-pub fn part_two(path: &str) -> Result<usize> {
-    let directions = read_to_directions(path)?;
+pub fn part_two(contents: &str) -> Result<usize> {
+    let directions = read_to_directions(contents)?;
     let (x, y) = calculate_aimed_position(directions.as_slice());
     Ok(x * y)
 }
