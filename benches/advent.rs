@@ -5,7 +5,7 @@ use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use advent2021::get_day;
 
 fn criterion_benchmark(c: &mut Criterion) {
-    (1..4).map(|day| day.to_string()).for_each(|day| {
+    (1..5).map(|day| day.to_string()).for_each(|day| {
         let (day, input_path, part_one, part_two) =
             get_day(day.as_str()).expect("Invalid day included in benchmark");
 
