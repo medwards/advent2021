@@ -40,16 +40,10 @@ impl Bingo {
         let boards_result =
             self.balls
                 .iter()
-                .try_fold((self.boards.clone(), 0), |(boards, score), ball| {
+                .try_fold((self.boards.clone(), 0), |(mut boards, score), ball| {
                     let keep_board = boards.len() == 1;
-                    let boards: Vec<_> = boards
-                        .into_iter()
-                        .filter(|board| keep_board || !board.is_complete())
-                        .map(|mut board| {
-                            board.mark(*ball);
-                            board
-                        })
-                        .collect();
+                    boards.iter_mut().for_each(|board| board.mark(*ball));
+                    boards.retain(|board| keep_board || !board.is_complete());
                     if boards.len() == 1 {
                         if let Some(board) = boards.get(0) {
                             if board.is_complete() {
