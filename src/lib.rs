@@ -1,5 +1,6 @@
 use std::str::FromStr;
 
+pub mod day_five;
 pub mod day_four;
 pub mod day_one;
 pub mod day_three;
@@ -45,6 +46,12 @@ pub fn get_day(
             day_four::INPUT_PATH,
             day_four::part_one,
             day_four::part_two,
+        )),
+        "5" | "five" => Ok((
+            "5",
+            day_five::INPUT_PATH,
+            day_five::part_one,
+            day_five::part_two,
         )),
         _ => Err(Error::InvalidDay),
     }
