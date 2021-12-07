@@ -17,23 +17,22 @@ pub fn part_two(contents: &str) -> Result<usize> {
 }
 
 fn simulate(fish: &[usize], days: usize) -> usize {
-    let mut fish_generations: HashMap<usize, usize> =
-        fish.iter().fold(HashMap::new(), |mut generations, fish| {
-            *generations.entry(*fish).or_default() += 1;
-            generations
-        });
+    let mut fish_generations: [usize; 9] = [0; 9];
+    fish.iter().for_each(|fish| {
+        fish_generations[*fish] += 1;
+    });
     (0..days).for_each(|_| progress_day(&mut fish_generations));
-    fish_generations.values().sum()
+    fish_generations.iter().sum()
 }
 
-fn progress_day(generations: &mut HashMap<usize, usize>) {
-    let resetting_fish = generations.get(&0).copied().unwrap_or(0);
+fn progress_day(generations: &mut [usize; 9]) {
+    let resetting_fish = generations[0];
     (1..=8).for_each(|generation| {
-        let fish = generations.get(&generation).copied().unwrap_or(0);
-        generations.insert(generation - 1, fish);
+        let fish = generations[generation];
+        generations[generation - 1] = fish;
     });
-    *generations.entry(6).or_default() += resetting_fish;
-    generations.insert(8, resetting_fish);
+    generations[6] += resetting_fish;
+    generations[8] = resetting_fish;
 }
 
 #[cfg(test)]
@@ -49,24 +48,8 @@ mod tests {
 
     #[test]
     fn test_progress_day() {
-        let mut generations: HashMap<_, _> = (&[(0, 1), (1, 1), (2, 2), (3, 1)])
-            .iter()
-            .copied()
-            .collect();
-        let expected_generations: HashMap<_, _> = (&[
-            (0, 1),
-            (1, 2),
-            (2, 1),
-            (3, 0),
-            (4, 0),
-            (5, 0),
-            (6, 1),
-            (7, 0),
-            (8, 1),
-        ])
-            .iter()
-            .copied()
-            .collect();
+        let mut generations: [usize; 9] = [1, 1, 2, 1, 0, 0, 0, 0, 0];
+        let expected_generations: [usize; 9] = [1, 2, 1, 0, 0, 0, 1, 0, 1];
 
         progress_day(&mut generations);
         assert_eq!(expected_generations, generations);
