@@ -20,24 +20,14 @@ fn count_overlap(endpoints: &[[[usize; 2]; 2]]) -> usize {
     endpoints
         .iter()
         .flat_map(|pair| {
-            // let coords = vec![pair[0], pair[1]];
             let (x1, y1, x2, y2) = (pair[0][0], pair[0][1], pair[1][0], pair[1][1]);
-            let coords: Vec<_> = if x1 == x2 {
-                (min(y1, y2)..=max(y1, y2)).map(|y| [x1, y]).collect()
-            } else if y1 == y2 {
-                (min(x1, x2)..=max(x1, x2)).map(|x| [x, y1]).collect()
-            } else {
-                let x_delta: i32 = x2 as i32 - x1 as i32;
-                let y_delta: i32 = y2 as i32 - y1 as i32;
-                (0..=x_delta.abs())
-                    .map(|i| {
-                        let x = x1 as i32 + (i * x_delta.signum());
-                        let y = y1 as i32 + (i * y_delta.signum());
-                        [x as usize, y as usize]
-                    })
-                    .collect()
-            };
-            coords
+            let x_delta: i32 = x2 as i32 - x1 as i32;
+            let y_delta: i32 = y2 as i32 - y1 as i32;
+            (0..=max(x_delta.abs(), y_delta.abs())).map(move |i| {
+                let x = x1 as i32 + (i * x_delta.signum());
+                let y = y1 as i32 + (i * y_delta.signum());
+                [x as usize, y as usize]
+            })
         })
         .fold(HashMap::<[usize; 2], usize>::new(), |mut counts, coord| {
             *counts.entry(coord).or_default() += 1;
