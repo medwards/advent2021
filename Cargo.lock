@@ -7,6 +7,7 @@ name = "advent2021"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "arrayvec",
  "clap 3.0.0-beta.5",
  "criterion",
 ]
@@ -16,6 +17,12 @@ name = "anyhow"
 version = "1.0.51"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b26702f315f53b6071259e15dd9d64528213b44d61de1ec926eca7715d62203"
+
+[[package]]
+name = "arrayvec"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8da52d66c7071e2e3fa2a1e5c6d088fec47b593032b254f5e980de8ea54454d6"
 
 [[package]]
 name = "atty"
