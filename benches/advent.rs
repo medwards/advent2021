@@ -2,10 +2,10 @@ use std::fs::read_to_string;
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-use advent2021::get_day;
+use advent2021::{get_day, MAX_DAY};
 
 fn criterion_benchmark(c: &mut Criterion) {
-    (1..10).map(|day| day.to_string()).for_each(|day| {
+    (1..=MAX_DAY).map(|day| day.to_string()).for_each(|day| {
         let (day, input_path, part_one, part_two) =
             get_day(day.as_str()).expect("Invalid day included in benchmark");
 

@@ -10,6 +10,8 @@ pub mod day_six;
 pub mod day_three;
 pub mod day_two;
 
+pub const MAX_DAY: u32 = 9;
+
 #[derive(Debug)]
 pub enum Error {
     InvalidDay,
