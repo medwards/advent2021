@@ -7,6 +7,7 @@ pub mod day_nine;
 pub mod day_one;
 pub mod day_seven;
 pub mod day_six;
+pub mod day_six_jhorstmann;
 pub mod day_three;
 pub mod day_two;
 
@@ -64,6 +65,12 @@ pub fn get_day(
             day_six::INPUT_PATH,
             day_six::part_one,
             day_six::part_two,
+        )),
+        "jhorstmann::6" | "jhorstmann::six" => Ok((
+            "jhorstmann::6",
+            day_six_jhorstmann::INPUT_PATH,
+            day_six_jhorstmann::part_one,
+            day_six_jhorstmann::part_two,
         )),
         "7" | "seven" => Ok((
             "7",
