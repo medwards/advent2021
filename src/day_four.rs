@@ -184,26 +184,6 @@ impl Board {
             .map(|(_, value)| value)
             .sum()
     }
-
-    fn display_marked(&self) -> String {
-        self.marked
-            .iter()
-            .enumerate()
-            .map(|(i, marked)| {
-                if (i + 1) % 5 == 0 {
-                    if *marked == 0 {
-                        " \n"
-                    } else {
-                        "X\n"
-                    }
-                } else if *marked == 0 {
-                    " "
-                } else {
-                    "X"
-                }
-            })
-            .collect()
-    }
 }
 
 #[cfg(test)]
@@ -211,6 +191,28 @@ mod tests {
     use std::fs::read_to_string;
 
     use super::*;
+
+    impl Board {
+        fn display_marked(&self) -> String {
+            self.marked
+                .iter()
+                .enumerate()
+                .map(|(i, marked)| {
+                    if (i + 1) % 5 == 0 {
+                        if *marked == 0 {
+                            " \n"
+                        } else {
+                            "X\n"
+                        }
+                    } else if *marked == 0 {
+                        " "
+                    } else {
+                        "X"
+                    }
+                })
+                .collect()
+        }
+    }
 
     #[test]
     fn test_bingo_play() {
