@@ -8,6 +8,7 @@ pub mod day_one;
 pub mod day_seven;
 pub mod day_six;
 pub mod day_six_jhorstmann;
+pub mod day_ten;
 pub mod day_three;
 pub mod day_two;
 
@@ -87,6 +88,12 @@ pub fn get_day(
             day_nine::INPUT_PATH,
             day_nine::part_one,
             day_nine::part_two,
+        )),
+        "10" | "ten" => Ok((
+            "10",
+            day_ten::INPUT_PATH,
+            day_ten::part_one,
+            day_ten::part_two,
         )),
         _ => Err(Error::InvalidDay),
     }
