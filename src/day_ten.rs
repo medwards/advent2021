@@ -33,9 +33,9 @@ fn error_score(lines: &[&str]) -> usize {
 }
 
 fn completion_score(lines: &[&str]) -> usize {
-    let foo = check_delimiters(lines);
+    let lines = check_delimiters(lines);
 
-    let lines: Vec<_> = foo
+    let lines: Vec<_> = lines
         .iter()
         .flatten() // throw away errors
         .collect();
@@ -56,7 +56,7 @@ fn completion_score(lines: &[&str]) -> usize {
             })
         })
         .collect();
-    scores.sort();
+    scores.sort_unstable();
     *scores.get(scores.len() / 2).unwrap()
 }
 
@@ -69,7 +69,7 @@ fn autocomplete_lines(lines: &[&&str]) -> Vec<String> {
                 if "([{<".contains(character) {
                     opened.push(character);
                     opened
-                } else if let Some(_) = opened.last() {
+                } else if opened.last().is_some() {
                     opened.pop(); // we trust there are no unmatched braces
                     opened
                 } else {
