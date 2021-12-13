@@ -72,6 +72,7 @@ fn load_paper(contents: &str) -> Result<(Vec<(usize, usize)>, Vec<Fold>)> {
         None => ControlFlow::Break(Ok(coords)),
     });
 
+    // TODO: use break_value
     let coords = match fold_res {
         ControlFlow::Continue(_) => panic!("unfinished coords iter"), // shouldn't happen
         ControlFlow::Break(res) => res?,

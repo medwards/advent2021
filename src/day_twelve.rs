@@ -132,6 +132,8 @@ fn find_paths_with_small(edges: &[(Vertex, Vertex)]) -> Vec<Vec<Vertex>> {
             vertices.push(right.clone())
         });
 
+    // TODO: this can be simpler, just (Path, bool)
+    // Then allow the caller to initialize the bool and replace find_paths
     let mut queue = vec![(vec![Vertex::Start], None)];
 
     while !queue.is_empty() {

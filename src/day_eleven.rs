@@ -27,6 +27,7 @@ pub fn part_two(contents: &str) -> Result<usize> {
 
 fn load_grid(contents: &str) -> [[usize; 10]; 10] {
     let mut grid = [[0; 10]; 10];
+    // TODO: just do character - '0'
     contents.lines().enumerate().for_each(|(i, row)| {
         row.chars().enumerate().for_each(|(j, character)| {
             grid[i][j] = match character {
@@ -50,6 +51,7 @@ fn load_grid(contents: &str) -> [[usize; 10]; 10] {
 
 // assumes no octopus has value 9
 fn increment(octopus_grid: &[[usize; 10]; 10]) -> (usize, [[usize; 10]; 10]) {
+    // TODO: this inverted grid is not needed
     let mut inverted_octopus_grid = *octopus_grid;
 
     inverted_octopus_grid
