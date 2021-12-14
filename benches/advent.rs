@@ -41,6 +41,6 @@ fn create_solvers_benchmark(c: &mut Criterion, namespace: Option<&str>) {
 criterion_group!(
     benches,
     medwards_solvers_benchmark,
-    jhorstmann_solvers_benchmark
+    // jhorstmann_solvers_benchmark -- Day 6, Part One has a bug
 );
 criterion_main!(benches);
