@@ -40,7 +40,7 @@ fn main() {
             part_one(contents.as_str()).unwrap()
         );
         println!(
-            "Day {}, Part One: {}",
+            "Day {}, Part Two: {}",
             day,
             part_two(contents.as_str()).unwrap()
         );
